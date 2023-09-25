@@ -1,6 +1,8 @@
 package com.mystudy.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,5 +45,33 @@ public class Ex04 extends HttpServlet {
 		
 		System.out.println("> hobby : " + hobby); 
 		//hobby 2개 값 넘겼을 때 먼저 작성된 한개만 출력
+//		System.out.println("> hobby 첫번째 : " + hobby[0]);
+//		System.out.println("> hobby 두번째 : " + hobby[1]); //-> null 값인지 확인하고 출력 [주의]
+		System.out.println("> hobby 확인 : " + Arrays.toString(hobby));
+		
+		//==================================
+		//클라이언트(브라우저) 쪽으로 응답 처리
+		//응답데이터 한글 깨짐 방지를 위한 문자셋 설정
+		resp.setContentType("text/html;charset=UTF-8");
+		
+		PrintWriter out = resp.getWriter();
+		out.println("<h2>Sign Up Information</h2>");
+		out.println("<ul>");
+		out.println("<li> Name : " + name + "</li>");
+		out.println("<li> ID : " + id + "</li>");
+		out.println("<li> Password : " + pw + "</li>");
+		out.println("<li> Email : " + email + "</li>");
+		
+		//선택된 취미 정보
+		out.println("<li> hobby : ");
+		if (hobby == null) { //null 체크 후 처리 해주기~
+			out.write("선택안함");
+		} else {
+			for(String str : hobby) {
+				out.write(str + "&nbsp;&nbsp;");
+			}
+		}
+		out.print("</li>");
+		out.println("</ul>");
 	}
 }
