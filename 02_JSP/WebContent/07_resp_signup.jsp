@@ -32,9 +32,13 @@
 		<li>Email : <%=email %></li>
 		<li>Gender : <%=gender %></li>
 		<li>Hobby : <% 
-			for (String str : hobby){ 
-				out.println(str); 
-			}; %> 
+			if (hobby == null) {
+				out.println("취미를 선택해주세요");
+			} else {
+				for (String str : hobby){ 
+					out.println(str); 
+				};
+			} %> 
 		</li>
 	</ul>
 	
