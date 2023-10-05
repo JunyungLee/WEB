@@ -2,22 +2,21 @@
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- 전달받은 사번(sabun) 데이터 DB 조회해서 화면에 표시 --%>
+<%--전달받은 사번(sabun) 데이터 DB 조회해서 화면에 표시 --%>
 <%
 	//1. 전달받은 사번(sabun) 값 확인(추출)
 	int sabun = Integer.parseInt(request.getParameter("sabun"));
-	
+
 	//2. DB 데이터 조회
-	/*
-	final String DRIVER = "oracle.jdbc.OracleDriver";
+	/* final String DRIVER = "oracle.jdbc.OracleDriver";
 	final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
 	final String USER = "mystudy";
-	final String PASSWORD = "mystudypw";
-	*/
-
+	final String PASSWORD = "mystudypw"; */
+	
+	
 	Connection conn = null;
 	PreparedStatement pstmt = null;
-	ResultSet rs = null;	
+	ResultSet rs = null;
 	
 	//DB 데이터 저장할 변수 선언
 	String name = null;
@@ -25,40 +24,48 @@
 	int pay = 0;
 	
 	try {
-		//1. JDBC 드라이버 로딩
+		//JDBC 드라이버 로딩
 		Class.forName(JdbcUtil.DRIVER);
 		
-		//2. DB연결 - Connection 객체 생성 <- DriverManager
+		//DB연결 - Connection 객체 생성 <- DriverManager
 		//conn = DriverManager.getConnection(JdbcUtil.URL, JdbcUtil.USER, JdbcUtil.PASSWORD);
 		conn = JdbcUtil.getConnection();
 		
-		String sql = "";
+		String sql = ""; 
 		sql += "SELECT SABUN, NAME, REGDATE, PAY ";
-		sql += "  FROM EMPLOYEE ";
+		sql += " FROM EMPLOYEE ";
 		sql += " WHERE SABUN = ? ";
-		//3. Statement 문 실행(SQL 문 실행)
+		
+		//Statement 문 실행(SQL 문 실행)
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, sabun);
 		
-		//4. SQL 실행 결과에 대한 처리
-		//4-1. SQL문 실행
+		//SQL 실행 결과에 대한 처리
+		//SQL 문 실행
 		rs = pstmt.executeQuery();
 		
-		//4-2. SQL 실행결과에 대한 처리
+		//SQL문 실행 결과에 대한 처리
+		//   - SELECT : 조회(검색) 데이터 결과 값에 대한 처리
 		if (rs.next()) {
 			name = rs.getString("NAME");
 			regdate = rs.getDate("REGDATE");
 			pay = rs.getInt("PAY");
 		}
-	} catch(Exception e) {
+	} catch (Exception e) {
 		e.printStackTrace();
 	} finally {
-		//5. 클로징 처리에 의한 자원 반납
+		//클로징 처리에 의한 자원 반납
+		/* try {
+			if (rs != null) rs.close();
+			if (pstmt != null) pstmt.close();
+			if (conn != null) conn.close();
+		} catch (Exception e) {} */
+		
 		JdbcUtil.close(conn, pstmt, rs);
 	}
+	//3. 화면 구현
 	
-	//3. 화면에 표시
-%>    
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,7 +73,7 @@
 <title>상세보기</title>
 </head>
 <body>
-	<h1>상세보기 [detail.jsp]</h1>
+	<h1>사원 상세정보[detail.jsp]</h1>
 	<table border>
 		<tr>
 			<th>사번</th>
@@ -85,10 +92,6 @@
 			<td><%=pay %></td>
 		</tr>
 	</table>
-	<p>
-		<a href="editForm.jsp?sabun=<%=sabun%>&name=<%=name %>&pay=<%=pay %>">수정</a>
-		<a href="delete.jsp?sabun=<%=sabun %>">삭제</a>
-		<a href="list.jsp">목록보기</a>
-	</p>
+	
 </body>
 </html>

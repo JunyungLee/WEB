@@ -1,5 +1,7 @@
 <%@page import="com.mystudy.common.JdbcUtil"%>
-<%@page import="java.sql.*"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%--(실습) 전달받은 데이터로 DB데이터 삭제처리 후 페이지 전환 

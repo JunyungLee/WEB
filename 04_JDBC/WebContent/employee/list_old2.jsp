@@ -4,19 +4,19 @@
 <%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
-<%-- JDBC 프로그램으로 DB데이터를 가져와서 화면 출력 --%>
+<%-- JDBC 프로그램으로   --%>
 <%
 	//JDBC 프로그래밍 
 	final String DRIVER = "oracle.jdbc.OracleDriver";
 	final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
 	final String USER = "mystudy";
 	final String PASSWORD = "mystudypw";
-
+	
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 	
-	int cnt = 0; //전체 인원 수
+	int cnt = 0; //전체 인원수
 	
 	try {
 		//1. JDBC 드라이버 로딩
@@ -29,14 +29,14 @@
 				+ "SELECT SABUN, NAME, REGDATE, PAY "
 				+ "  FROM EMPLOYEE "
 				+ " ORDER BY SABUN ";
+		
 		//3. Statement 문 실행(SQL 문 실행)
 		pstmt = conn.prepareStatement(sql);
 		
 		//4. SQL 실행 결과에 대한 처리
-		//4-1. SQL문 실행
+		//4-1 SQL 문 실행
 		rs = pstmt.executeQuery();
 %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,12 +51,12 @@
 				<th>사번</th>
 				<th>성명</th>
 				<th>날짜</th>
-				<th>금액</th>
+				<th>급여</th>
 				<th>상세보기</th>
 			</tr>
 		</thead>
-		<tbody>	
-			<%-- 	
+		<tbody>
+			<%--
 			<tr>
 				<td>1001-샘플</td>
 				<td>user1</td>
@@ -76,16 +76,17 @@
 					<a href="detail.jsp?sabun=<%=rs.getInt("SABUN") %>">상세보기</a>
 				</td>
 			</tr>
-<%			
+<%
 		}
-%>	
+%>
+
 		</tbody>
 	</table>
 	<p><a href="addForm.jsp">사원등록</a></p>
 </body>
 </html>
-<%		
-	} catch(Exception e) {
+<%
+	} catch (Exception e) {
 		e.printStackTrace();
 	} finally {
 		//5. 클로징 처리에 의한 자원 반납
@@ -93,12 +94,6 @@
 			if (rs != null) rs.close();
 			if (pstmt != null) pstmt.close();
 			if (conn != null) conn.close();
-		} catch(Exception e) {}
+		} catch (Exception e) {}
 	}
-%>	
-
-
-
-
-
-
+%>
