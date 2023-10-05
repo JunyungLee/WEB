@@ -2,8 +2,12 @@
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- DB에서 전체 데이터 조회해서 화면 출력 --%>
+<%--전달받은 아이디(id) 값으로 DB에서 데이터 조회 후 화면 표시
+	없으면 : 데이터 없음 메시지 표시 --%>
 <%
+	//1. 전달받은 파라미터 값 확인(추출)
+	String id = request.getParameter("id");
+
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
@@ -14,23 +18,22 @@
 		String sql = "" 
 				+ " SELECT IDX, ID, PWD, NAME, AGE " 
 				+ "	, NVL(ADDRESS,'주소없음') AS ADDRESS, REG "
-				+ " , TO_CHAR(REG, 'YYYY/MM/DD') REG2 "
 				+ " FROM MEMBER2 "
-				+ " ORDER BY IDX ";
+				+ " WHERE ID = ? ";
 		
 		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, id);
 		
 		rs = pstmt.executeQuery();
 %>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>전체데이터검색</title>
+<title>ID로 검색하기</title>
 </head>
 <body>
-	<h1>전체데이터 검색</h1>
+	<h1>ID로 검색하기</h1>
 	<table border>
 		<thead>
 			<tr>
@@ -45,22 +48,26 @@
 		</thead>
 		<tbody>
 <%
-	while (rs.next()) { %>
+	if (rs.next()) { %>
+			<tr>
+				<td><%=rs.getInt("IDX") %></td>
+				<td><%=rs.getString("ID") %></td>
+				<td><%=rs.getString("PWD") %></td>
+				<td><%=rs.getString("NAME") %></td>
+				<td><%=rs.getInt("AGE") %></td>
+				<td><%=rs.getString("ADDRESS") %></td>
+				<td><%=rs.getDate("REG") %></td> 
+				<%-- <td><%=rs.getString("REG") %></td> : 2023-10-05 16:21:02--%>
+			</tr>
+
+	<% } else { %>
 		<tr>
-			<td><%=rs.getInt("IDX") %></td>
-			<td><%=rs.getString("ID") %></td>
-			<td><%=rs.getString("PWD") %></td>
-			<td><%=rs.getString("NAME") %></td>
-			<td><%=rs.getInt("AGE") %></td>
-			<td><%=rs.getString("ADDRESS") %></td>
-			<%-- <td><%=rs.getDate("REG") %></td> --%>
-			<td><%=rs.getString("REG2") %></td>
+			<td colspan = "7"> 데이터가 없습니다 </td>
 		</tr>
 <%
 	}
 %>
-		</tbody>
-	</table>
+	<a href=main.jsp >돌아가기</a>
 </body>
 </html>
 <%
