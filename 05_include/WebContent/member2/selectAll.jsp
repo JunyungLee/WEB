@@ -28,8 +28,11 @@
 <head>
 <meta charset="UTF-8">
 <title>전체데이터검색</title>
+<script type="text/javascript" src="includee/event.js"></script>
 </head>
 <body>
+	<%@ include file = "includee/menu.jspf" %>
+	
 	<h1>전체데이터 검색</h1>
 	<table border>
 		<thead>

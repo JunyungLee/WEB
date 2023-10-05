@@ -31,8 +31,11 @@
 <head>
 <meta charset="UTF-8">
 <title>ID로 검색하기</title>
+<script type="text/javascript" src="includee/event.js"></script>
 </head>
 <body>
+	<%@ include file = "includee/menu.jspf" %>
+	
 	<h1>ID로 검색하기</h1>
 	<table border>
 		<thead>
@@ -67,7 +70,6 @@
 <%
 	}
 %>
-	<a href=main.jsp >돌아가기</a>
 </body>
 </html>
 <%
