@@ -2,9 +2,9 @@ package com.mystudy.common;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class JdbcUtil {
 	public static final String DRIVER = "oracle.jdbc.OracleDriver";
@@ -16,36 +16,27 @@ public class JdbcUtil {
 		return DriverManager.getConnection(URL, USER, PASSWORD);
 	}
 	
-	public static void close(Connection conn, Statement stmt, ResultSet rs) {
+	public static void close(Connection conn, PreparedStatement pstmt, ResultSet rs) {
 		try {
 			if (rs != null) rs.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		} catch (Exception e) {}
+		
 		try {
-			if (stmt != null) stmt.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+			if (pstmt != null) pstmt.close();
+		} catch (SQLException e) {}
+		
 		try {
 			if (conn != null) conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		} catch (SQLException e) {}
 	}
 	
-	public static void close(Connection conn, Statement stmt) {
-		try {
-			if (stmt != null) stmt.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	public static void close(Connection conn, PreparedStatement pstmt) {
+		try { 
+			if (pstmt != null) pstmt.close();
+		} catch (SQLException e) {}
+		
 		try {
 			if (conn != null) conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		} catch (SQLException e) {}
 	}
-	
-	
 }
