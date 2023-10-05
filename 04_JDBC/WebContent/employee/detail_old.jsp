@@ -1,5 +1,3 @@
-<%@page import="java.net.URLEncoder"%>
-<%@page import="com.mystudy.vo.EmployeeVO"%>
 <%@page import="com.mystudy.common.JdbcUtil"%>
 <%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -22,7 +20,9 @@
 	ResultSet rs = null;	
 	
 	//DB 데이터 저장할 변수 선언
-	EmployeeVO vo = null;
+	String name = null;
+	Date regdate = null;
+	int pay = 0;
 	
 	try {
 		//1. JDBC 드라이버 로딩
@@ -46,12 +46,9 @@
 		
 		//4-2. SQL 실행결과에 대한 처리
 		if (rs.next()) {
-			vo = new EmployeeVO();
-			vo.setSabun(rs.getInt("SABUN"));
-			vo.setName(rs.getString("NAME"));
-			vo.setRegdate(rs.getDate("REGDATE"));
-			vo.setPay(rs.getInt("PAY"));
-			
+			name = rs.getString("NAME");
+			regdate = rs.getDate("REGDATE");
+			pay = rs.getInt("PAY");
 		}
 	} catch(Exception e) {
 		e.printStackTrace();
@@ -77,27 +74,21 @@
 		</tr>
 		<tr>
 			<th>성명</th>
-			<td><%=vo.getName() %></td>
+			<td><%=name %></td>
 		</tr>
 		<tr>
 			<th>날짜</th>
-			<td><%=vo.getRegdate() %></td>
+			<td><%=regdate %></td>
 		</tr>
 		<tr>
 			<th>금액</th>
-			<td><%=vo.getPay() %></td>
+			<td><%=pay %></td>
 		</tr>
 	</table>
 	<p>
-		<a href="editForm.jsp?sabun=<%=sabun%>&name=<%=vo.getName() %>&pay=<%=vo.getPay() %>">수정</a>
+		<a href="editForm.jsp?sabun=<%=sabun%>&name=<%=name %>&pay=<%=pay %>">수정</a>
 		<a href="delete.jsp?sabun=<%=sabun %>">삭제</a>
 		<a href="list.jsp">목록보기</a>
 	</p>
-	<hr>
-	<a href="editForm.jsp?sabun=<%=sabun%>&name=<%=URLEncoder.encode(vo.getName(), "UTF-8") %>&pay=<%=vo.getPay() %>">수정(URLEncode적용)</a>
 </body>
 </html>
-
-
-
-
