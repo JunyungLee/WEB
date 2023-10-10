@@ -15,6 +15,13 @@
 		ORDER BY IDX DESC
 	</select>
 	
+	<!--type 별칭사용  -->
+	<select id="one" parameterType="int" resultType="guestbookVO">
+		SELECT IDX, NAME, SUBJECT, CONTENT, EMAIL, PWD, REGDATE
+		FROM GUESTBOOK 
+		WHERE IDX = #{idx}
+	</select>
+	
 	<insert id="add" parameterType="com.mystudy.mybatis.GuestbookVO">
 		INSERT INTO GUESTBOOK
        		 (IDX, NAME, SUBJECT, CONTENT, EMAIL, 
