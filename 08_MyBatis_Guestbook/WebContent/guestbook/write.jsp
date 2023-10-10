@@ -22,7 +22,7 @@
 	}
 	.center { text-align: center; }
 	
-	#container tfoot {text-align : center;}
+	#container tfoot { text-align: center; }
 </style>
 </head>
 <body>
