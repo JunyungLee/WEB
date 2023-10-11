@@ -40,7 +40,7 @@
 		
 		//DB 데이터 삭제 처리
 		//SqlSession ss = DBService.getFactory().openSession(true); //오토커밋 상태
-		SqlSession ss = DBService.getFactory().openSession(); //오토커밋 해제상태
+		SqlSession ss = DBService.getFactory().openSession(); //오토커밋 해제 상태
 		
 		try {
 			result = ss.delete("guestbook.delete", idx);
@@ -80,7 +80,7 @@
 		location.href = "onelist.jsp?idx=<%=vo.getIdx() %>";
 	}
 	if (result == 0) { //정상실행 - 삭제안됨(데이터 없음)
-		alert("[삭제실패] 데이터가 없어서 삭제 실패\n"
+		alert("[삭제실패] 데이터가 없어 삭제 실패했습니다\n"
 				+ "목록페이지로이동(list.jsp)");
 		location.href = "list.jsp";
 	}

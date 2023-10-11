@@ -5,6 +5,7 @@
 	//0. 전달받은 VO 데이터 확인(session에 저장된 데이터)
 	System.out.println("update.jsp session guestbookVO : "
 			+ session.getAttribute("guestbookVO"));
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -26,7 +27,7 @@
 			return false;
 		}
 		
-		frm.action = "update_ok.jsp"
+		frm.action = "update_ok.jsp";
 		frm.submit();
 	}
 </script>

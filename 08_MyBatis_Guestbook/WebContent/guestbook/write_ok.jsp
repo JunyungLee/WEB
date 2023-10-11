@@ -13,7 +13,8 @@
 	//1. 파라미터 값 확인(추출) - VO에 저장
 %>
 	<jsp:useBean id="guestbookVO" class="com.mystudy.mybatis.GuestbookVO" />
-	<jsp:setProperty property="*" name="guestbookVO"/>
+	<jsp:setProperty property="*" name="guestbookVO"/> 
+	<%--전체 데이터 가져올 때 useBean 사용이 훨씬 용이하고, 하나씩 추출하고 싶을때는 request.getParameter() 사용하기 --%>
 <%
 	System.out.println("guestbookVO : " + guestbookVO);	
 
@@ -23,7 +24,7 @@
 	
 	//2-2. SqlSession 객체 사용 DB에 입력
 	try {
-		int result = ss.insert("guestbook.insert", guestbookVO);
+		int result = ss.insert("guestbook.add", guestbookVO);
 		//3. 페이지 전환 : 입력 성공시 페이지 이동(전환)
 		System.out.println("result : " + result);
 %>
