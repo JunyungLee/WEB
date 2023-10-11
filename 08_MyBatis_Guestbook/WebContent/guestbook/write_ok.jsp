@@ -23,7 +23,7 @@
 	
 	//2-2. SqlSession 객체 사용 DB에 입력
 	try {
-		int result = ss.insert("guestbook.add", guestbookVO);
+		int result = ss.insert("guestbook.insert", guestbookVO);
 		//3. 페이지 전환 : 입력 성공시 페이지 이동(전환)
 		System.out.println("result : " + result);
 %>
