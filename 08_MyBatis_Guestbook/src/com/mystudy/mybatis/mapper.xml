@@ -14,36 +14,32 @@
 		FROM GUESTBOOK
 		ORDER BY IDX DESC
 	</select>
-
-	<!-- type 별칭사용 -->
+	
+	<!--type 별칭사용  -->
 	<select id="one" parameterType="int" resultType="guestbookVO">
 		SELECT IDX, NAME, SUBJECT, CONTENT, EMAIL, PWD, REGDATE
-		FROM GUESTBOOK
+		FROM GUESTBOOK 
 		WHERE IDX = #{idx}
 	</select>
 	
-	<insert id="insert" parameterType="com.mystudy.mybatis.GuestbookVO">
+	<insert id="add" parameterType="com.mystudy.mybatis.GuestbookVO">
 		INSERT INTO GUESTBOOK
-		       (IDX, NAME, SUBJECT, CONTENT, EMAIL, 
-		       PWD, REGDATE)
-		VALUES (GUESTBOOK_SEQ.NEXTVAL, #{name}, #{subject}, #{content}, #{email}, 
-		        #{pwd}, SYSDATE)
+       		 (IDX, NAME, SUBJECT, CONTENT, EMAIL, 
+       		 PWD, REGDATE)
+		VALUES (GUESTBOOK_SEQ.NEXTVAL, #{name}, #{subject}, #{content}, #{email},
+				 #{pwd}, SYSDATE)
 	</insert>
-
-	<update id="update" parameterType="guestbookVO">
-		UPDATE GUESTBOOK
-		SET NAME = #{name},
-		    SUBJECT = #{subject},
-		    EMAIL = #{email},
-		    CONTENT = #{content},
-		    REGDATE = SYSDATE
-		WHERE IDX = #{idx}
+	
+	<update id="update" parameterType="com.mystudy.mybatis.GuestbookVO">
+		UPDATE GUESTBOOK SET NAME = #{name},
+                             SUBJECT = #{subject},
+                             EMAIL = #{email},
+                             CONTENT = #{content}
+                WHERE IDX = #{idx}
 	</update>
 	
-	<!-- 글번호를 전달받아 데이터 삭제 -->
-	<delete id="delete" parameterType="int">
+	<!--글번호를 전달받아 데이터 삭제 -->
+	<delete id="delete" parameterType="com.mystudy.mybatis.GuestbookVO">
 		DELETE FROM GUESTBOOK WHERE IDX = #{idx}
 	</delete>
-	
-	
 </mapper>

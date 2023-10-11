@@ -3,11 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-
-	<settings>
-		<setting name="jdbcTypeForNull" value="NULL"/>
-	</settings>
-
+	
 	<typeAliases>
 		<typeAlias type="com.mystudy.mybatis.GuestbookVO" alias="guestbookVO"/>
 	</typeAliases>
@@ -29,8 +25,5 @@
   </mappers>
   
 </configuration>
-
-
-
 
 
