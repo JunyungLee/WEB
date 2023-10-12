@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BBS">
+
+	<!-- 전체 게시글 건수 조회 -->
+	<select id="totalCount" resultType="int">
+		SELECT COUNT(*) AS CNT FROM BBS
+	</select>
+	
+	<!-- 페이지에 해당하는 게시글 조회 -->
+	<select id="list" resultType="com.mystudy.bbs.vo.BbsVO" parameterType="map">
+		SELECT * 
+			FROM (SELECT ROWNUM AS RNUM, B.* 
+					FROM (SELECT *  
+						  FROM BBS 
+                          ORDER BY BBS_IDX DESC) B 
+                 )
+		WHERE RNUM BETWEEN #{begin} AND #{end}
+	</select>
+	
+	<!--게시글 1개 조회 -->
+	<select id="one" resultType ="bbsVO" parameterType="int">
+		SELECT BBS_IDX, SUBJECT, WRITER, CONTENT, FILE_NAME, 
+				ORI_NAME, PWD, WRITE_DATE, IP, HIT
+				FROM BBS 
+				WHERE BBS_IDX = #{bbsIdx}
+	</select>
+	
+	<!--조회수 1 증가처리 -->
+	<!-- <update id="hitup" parameterType="int">
+		UPDATE BBS SET HIT = #{hit} WHERE BBS_IDX = #{bbsIdx}
+	</update> -->
+	
+	<!--===== 댓글관련 ===== -->
+	<!--게시글에 딸린 댓글 데이터 조회  -->
+	<select id="commList" resultType="com.mystudy.bbs.vo.CommentVO" parameterType="int">
+		SELECT COMMENT_IDX, WRITER, CONTENT, PWD
+				, WRITE_DATE, IP, BBS_IDX 
+			FROM COMMENTS 
+			WHERE BBS_IDX = ${bbsIdx}
+			ORDER BY COMMENT_IDX DESC
+	</select>
+</mapper>
