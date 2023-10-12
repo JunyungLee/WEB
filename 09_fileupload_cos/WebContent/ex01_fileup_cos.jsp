@@ -14,14 +14,16 @@
 	2. form 태그 선언부 : enctype="multipart/form-data" 설정
 	3. form input 태그 : <input type="file" ...>
 --%>
-<form action="ex01_result_cos.jsp" method="post" enctype="multipart/form-data">
-	<p>올린사람 : <input type="text" name="name"></p>
-	<p>제목 : <input type="text" name="title"></p>
+	<form action="ex01_result_cos.jsp" method="post" enctype="multipart/form-data">
+		<p>올린사람 : <input type="text" name="name"></p>
+		<p>제목 : <input type="text" name="title"></p>
+		
+		<p>파일 : <input type="file" name="filename"></p>
+		
+		<input type="submit" value="파일업로드">
+	</form>
 	
-	<p>파일 : <input type="file" name="filename"></p>
 	
-	<input type="submit" value="파일업로드">
-</form>
-
+	
 </body>
 </html>

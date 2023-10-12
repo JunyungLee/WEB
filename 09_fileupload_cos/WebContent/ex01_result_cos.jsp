@@ -14,7 +14,7 @@
 	System.out.println("> name : " + name);
 	
 	// 파일을 저장할 경로 지정
-	//String path = "C:/upload/temp";
+	//String path = "c:/upload/temp"; //file만 저장하는 물리적인 server에 저장
 	String path = this.getServletContext().getRealPath("/upload");
 	System.out.println("> path : " + path);
 	
@@ -23,7 +23,7 @@
 			path, //실제 파일을 저장할 경로
 			10 * 1024 * 1024, //업로드 파일의 최대크기(byte 단위)
 			"UTF-8", //인코딩 형식
-			new DefaultFileRenamePolicy() //동일파일명 있으면 이름 자동 변경저장 (중복 이름 -> 자동 rename)
+			new DefaultFileRenamePolicy() //동일파일명 있으면 이름 자동 변경저장
 			);
 %>
 
@@ -42,15 +42,22 @@
 	<h2>파일(filename) : <%=mr.getParameter("filename") %></h2><%--null --%>
 	<hr>
 	
-	<h2>원본파일명 : <%=mr.getOriginalFileName("filename") %></h2> <%--내가 저장한 저장 파일명 --%>
-	<h2>저장파일명 : <%=mr.getFilesystemName("filename") %></h2> <%--물리적으로 저장된 저장 파일명 --%>
+	<h2>원본파일명 : <%=mr.getOriginalFileName("filename") %></h2>
+	<h2>저장파일명 : <%=mr.getFilesystemName("filename") %></h2>
 	<h2>파일타입 : <%=mr.getContentType("filename") %></h2>
 <%
 	File file = mr.getFile("filename");
-	out.println("<h2>"+ file.getName() + "</h2>");
-	out.println("<h2>"+ file.length() + "</h2>");
+	out.println("<h2>" + file.getName() + "</h2>");
+	out.println("<h2>" + file.length() + "</h2>");
 %>
 	<hr>
-	<h2>파일 다운로드</h2> <%--물리적으로 저장된 파일 다운로드-> 저장파일명 사용 --%>
+	<h2>파일 다운로드</h2>
+	<a href="download.jsp?path=upload&filename=<%=mr.getFilesystemName("filename") %>">다운로드할 파일(<%=mr.getOriginalFileName("filename") %>)</a>
 </body>
 </html>
+
+
+
+
+
+
