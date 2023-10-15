@@ -42,16 +42,18 @@ public class BbsDAO {
 	}
 	
 	//게시글 조회수 1 증가 처리
-	/*
-	  public static BbsVO hitup (int hit) { 
-	  	BbsVO vo = null; SqlSession
-	 	ss=DBService.getFactory().openSession();
-	 
-	 	vo = ss.update(null); 
-	 	return vo; 
-	 	}
-	 */
-	
+	 public static void hitup(int bbsIdx) {
+	        SqlSession sqlSession = DBService.getFactory().openSession();
+	        try {
+	            sqlSession.update("BBS.hitup", bbsIdx);
+	            sqlSession.commit();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        } finally {
+	            sqlSession.close();
+	        }
+	    }
+	  
 	//게시글 하나 조회
 	public static BbsVO selectOne(int bbsIdx) {
 		BbsVO vo = null;
