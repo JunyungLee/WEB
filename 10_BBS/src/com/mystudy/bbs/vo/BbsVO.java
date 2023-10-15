@@ -10,7 +10,7 @@ public class BbsVO {
 	private String pwd;
 	private String writeDate;
 	private String ip;
-	private String hit;
+	private int hit;
 	
 	public String getBbsIdx() {
 		return bbsIdx;
@@ -66,10 +66,11 @@ public class BbsVO {
 	public void setIp(String ip) {
 		this.ip = ip;
 	}
-	public String getHit() {
+
+	public int getHit() {
 		return hit;
 	}
-	public void setHit(String hit) {
+	public void setHit(int hit) {
 		this.hit = hit;
 	}
 	@Override
