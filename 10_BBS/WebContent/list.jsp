@@ -1,3 +1,4 @@
+<%@page import="org.apache.ibatis.session.SqlSession"%>
 <%@page import="com.mystudy.bbs.vo.BbsVO"%>
 <%@page import="java.util.List"%>
 <%@page import="com.mystudy.bbs.dao.BbsDAO"%>
@@ -70,8 +71,7 @@
 	//현재 페이지 기준으로 DB 데이터(게시글) 가져오기
 	//시작번호(begin), 끝번호(end) 사용해서
 	List<BbsVO> list = BbsDAO.getList(p.getBegin(), p.getEnd());
-	System.out.println(">>현재페이지 글목록(list) : " + list);
-	
+	System.out.println(">>현재페이지 글목록(list) : " + list);	
 	//---------------------
 	//JSTL, EL 사용을 위해 scope에 데이터 등록(page 영역)
 	pageContext.setAttribute("list", list);
