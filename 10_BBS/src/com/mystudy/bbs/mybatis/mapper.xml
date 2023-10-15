@@ -21,7 +21,7 @@
 	</select>
 	
 	<!--게시글 1개 조회 -->
-	<select id="one" resultType ="bbsVO" parameterType="int">
+	<select id="one" resultType ="com.mystudy.bbs.vo.BbsVO" parameterType="int">
 		SELECT BBS_IDX, SUBJECT, WRITER, CONTENT, FILE_NAME, 
 				ORI_NAME, PWD, WRITE_DATE, IP, HIT
 				FROM BBS 
@@ -29,9 +29,9 @@
 	</select>
 	
 	<!--조회수 1 증가처리 -->
-	<!-- <update id="hitup" parameterType="int">
-		UPDATE BBS SET HIT = #{hit} WHERE BBS_IDX = #{bbsIdx}
-	</update> -->
+	<update id="hitup" parameterType="int">
+		UPDATE BBS SET HIT = HIT + 1 WHERE BBS_IDX = #{bbsIdx}
+	</update>
 	
 	<!--===== 댓글관련 ===== -->
 	<!--게시글에 딸린 댓글 데이터 조회  -->
