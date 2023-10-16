@@ -16,7 +16,7 @@
 		location.href="controller?type=dept";
 	}
 	function fullname_search(){
-		loacation.href="controller?type=fullname";
+		location.href="controller?type=fullname";
 	}
 </script>
 </head>
