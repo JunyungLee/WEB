@@ -32,7 +32,18 @@
 	<update id="hitup" parameterType="int">
 		UPDATE BBS SET HIT = HIT + 1 WHERE BBS_IDX = #{bbsIdx}
 	</update>
-	
+	<!-- 게시글 입력처리  -->
+	<insert id="insert" parameterType="bbsVO">
+		INSERT INTO BBS
+       			(BBS_IDX, SUBJECT, WRITER, CONTENT, FILE_NAME, 
+        			ORI_NAME, PWD, WRITE_DATE, IP, HIT )
+		VALUES (BBS_SEQ.NEXTVAL, #{subject}, #{writer}, #{content}, #{fileName}, 
+        			#{oriName}, #{pwd}, SYSDATE, #{ip}, 0)
+	</insert>
+	<!--게시글 수정(실습)  -->
+	<update id="update" parameterType="bbsVO">
+		UPDATE BBS SET SUBJECT =#{subject}, WRITER= #{writer}, CONTENT=#{content} WHERE BBS_IDX = #{bbsIdx}  
+	</update>
 	<!--===== 댓글관련 ===== -->
 	<!--게시글에 딸린 댓글 데이터 조회  -->
 	<select id="commList" resultType="com.mystudy.bbs.vo.CommentVO" parameterType="int">
@@ -42,4 +53,16 @@
 			WHERE BBS_IDX = ${bbsIdx}
 			ORDER BY COMMENT_IDX DESC
 	</select>
+	<!--댓글저장(실습)  -->
+	<insert id="commInsert" parameterType="com.mystudy.bbs.vo.CommentVO">
+	 	INSERT INTO COMMENTS
+       	(COMMENT_IDX, WRITER, CONTENT, PWD, WRITE_DATE, 
+       			IP, BBS_IDX)
+		VALUES (COMMENTS_SEQ.NEXTVAL, #{writer}, #{content}, #{pwd}, SYSDATE, 
+       					#{ip}, #{bbs_idx})
+	</insert>
+	<!--댓글삭제(실습)  -->
+	<delete id="commDelete" parameterType="com.mystudy.bbs.vo.CommentVO">
+		DELETE FROM COMMENTS WHERE COMMENT_IDX = #{commentIdx}
+	</delete>
 </mapper>
