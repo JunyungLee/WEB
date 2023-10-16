@@ -13,4 +13,9 @@
 	<select id="deptList" parameterType="string" resultType="employeeVO">
 		SELECT * FROM EMPLOYEES WHERE DEPARTMENT_ID = #{deptno}	ORDER BY EMPLOYEE_ID
 	</select>
+	
+	<!--이름으로 검색  -->
+	<select id="name">
+		SELECT * FROM EMPLOYEES WHERE FIRST_NAME = INITCAP (#{firstName}) OR LAST_NAME = INITCAP (#{lastName})
+	</select>
 </mapper>
