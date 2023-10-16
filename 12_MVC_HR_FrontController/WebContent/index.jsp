@@ -15,12 +15,16 @@
 		//location.href="dept";
 		location.href="controller?type=dept";
 	}
+	function fullname_search(){
+		loacation.href="controller?type=fullname";
+	}
 </script>
 </head>
 <body>
 	<h1>작업선택[index.jsp]</h1>
 	<button onclick="all_serach()">전체보기(list)</button>
 	<button onclick="dept_search()">부서코드 검색(dept)</button>
+	<button onclick="fullname_search()">이름으로 검색(fullname)</button>
 	
 </body>
 </html>
