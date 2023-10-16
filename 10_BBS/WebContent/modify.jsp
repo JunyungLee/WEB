@@ -4,17 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시글 작성</title>
+<title>게시글 수정</title>
 <script>
-	function sendData(){
-		//alert("sendData() 시작");
-		let firstForm = document.forms[0]; //form에 id 부여해주는것과 동일
-		//alert("firstForm.elements.length : " + firstForm.elements.length);
+	function updateData(){
+		let firstForm = document.forms[0];
 		for (let i = 0; i < firstForm.elements.length; i++) {
 			if (firstForm.elements[i].value.trim() == ""){
-				console.log(firstForm.elements[i]);
-				//if (i == 3) continue; //첨부파일은 제외 (방법1)
-				if(firstForm.elements[i].getAttribute("type") == "file") continue; //첨부파일 제외 (방법2)
+				if(firstForm.elements[i].getAttribute("type") == "file") continue;
 				alert(firstForm.elements[i].title + "입력하세요");
 				firstForm.elements[i].focus();
 				return;
@@ -23,17 +19,13 @@
 		
 		firstForm.submit();
 	}
-	
-	function list_go(){ //목록으로 돌아가기
-		location.href="list.jsp"
-	}
 </script>
 </head>
 <body>
 	<div id="bbs">
-		<form action="write_ok.jsp" method="post" enctype="multipart/form-data">
+		<form action="modify_ok.jsp" method="post" enctype="multipart/form-data">
 		<table>
-			<caption>게시판 글쓰기</caption>
+			<caption>게시글 수정</caption>
 			<tbody>
 				<tr>
 					<th>제목</th>
@@ -68,9 +60,8 @@
 			</tbody>
 				<tr>
 					<td colspan="2">
-						<input type="button" value="저장" onclick="sendData()">
+						<input type="button" value="수정완료" onclick="updateData()">
 						<input type="reset" value="초기화">
-						<input type="button" value="목록보기" onclick="list_go()">
 					</td>
 				</tr>
 			<tfoot>
@@ -78,5 +69,6 @@
 		</table>
 		</form>
 	</div>
+
 </body>
 </html>
