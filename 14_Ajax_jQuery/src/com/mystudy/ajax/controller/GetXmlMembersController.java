@@ -22,7 +22,7 @@ public class GetXmlMembersController extends HttpServlet {
 		
 		//DB 데이터 가져오기
 		List<MemberVO> list = MemberDAO.getList();
-		System.out.println("list : " + list); 
+		System.out.println("list : " + list);
 		
 		//XML 형식 문자열로 만들기
 		/*
