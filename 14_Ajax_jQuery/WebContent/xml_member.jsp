@@ -16,20 +16,18 @@
 	function ajaxGetXmlMembers(){
 		alert(">> ajaxGetXmlMembers() 실행~~");
 		
-		$.ajax({
-			url : "getXmlMembers", //요청할 서버 url
-			type : "get", //타입 (get,post,put 등등)
-			dataType : "xml", //응답 받을 데이터 타입 //데이터 타입 (html, xml, json, text 등)
-			success : function(respData){ //결과 성공 콜백 함수
+		$.ajax("getXmlMembers", {
+			//url : "getXmlMembers",
+			type : "get",
+			dataType : "xml", //응답 받을 데이터 타입
+			success : function(respData){
 				alert(">> 성공");
 				console.log(respData);
 				
 				//XML 데이터 사용 tbody 영역에 tr 만들어 넣기
-				let htmlTag ="";
+				let htmlTag = "";
 				$(respData).find("member").each(function(){
-					//console.log($(this).find("idx").text());	
-					//console.log($(this).find("name").text());	
-					//console.log("--------");
+					//console.log($(this).find("idx").text());
 					htmlTag += "<tr>";
 					htmlTag += "<td>" + $(this).find("idx").text() + "</td>";
 					htmlTag += "<td>" + $(this).find("name").text() + "</td>";
@@ -37,12 +35,10 @@
 					htmlTag += "<td>" + $(this).find("addr").text() + "</td>";
 					htmlTag += "<td>" + $(this).find("regdate").text() + "</td>";
 					htmlTag += "</tr>";
-					
 				});
 				$("#tbody").html(htmlTag);
 			},
-			
-			error : function(jqXHR, textStatus, errorThrown){ //결과 에러 콜백함수
+			error : function(jqXHR, textStatus, errorThrown){
 				alert(">> Ajax 처리 실패 : \n"
 						+ "jqXHR.readyState : " + jqXHR.readyState + "\n"
 						+ "textStatus : " + textStatus + "\n"
