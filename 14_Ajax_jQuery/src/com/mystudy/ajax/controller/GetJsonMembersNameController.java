@@ -13,27 +13,32 @@ import javax.servlet.http.HttpServletResponse;
 import com.mystudy.ajax.dao.MemberDAO;
 import com.mystudy.ajax.vo.MemberVO;
 
-@WebServlet("/getJsonMembers")
-public class GetJsonMembersController extends HttpServlet {
-	@Override
+@WebServlet("/getJsonMembersName")
+public class GetJsonMembersNameController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println(">> GetJsonMembersController doGet() 실행");
+		System.out.println(">> GetJsonMembersNameController doGet() 실행");
+		//response.setContentType("text/html; charset=UTF-8");
+		response.setContentType("application/json; charset=UTF-8");
 		
-		// 한글깨짐 방지를 위한 문자타입(UTF-8) 처리
-		response.setContentType("text/html; charset=UTF-8");
-		
-		//DB 데이터 가져오기
-		List<MemberVO> list = MemberDAO.getList();
+		String name= request.getParameter("name");
+		List<MemberVO> list = MemberDAO.getListNameLike(name);
 		System.out.println("list : " + list);
 		
-		//JSON 형식 문자열 만들고 응답처리
-		// {"list" : {},{},...,{}]}
+		//JSON 형식 문자열 만들기
 		String result = makeJson(list);
 		
 		//클라이언트에게 응답처리
 		PrintWriter out = response.getWriter();
 		out.print(result);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		request.setCharacterEncoding("UTF-8"); //한글처리(doPost 필수)
+		doGet(request, response);
 	}
 
 	private String makeJson(List<MemberVO> list) {
@@ -68,6 +73,4 @@ public class GetJsonMembersController extends HttpServlet {
 		
 		return result.toString();
 	}
-	
-	
 }
