@@ -22,4 +22,15 @@ public class MemberDAO {
 		}
 		return list;
 	}
+	
+	//이름으로 검색 
+	public static List<MemberVO> getListNameLike(String name) {
+		List<MemberVO> list = null;
+		try (SqlSession ss = DBService.getFactory().openSession()) {
+			list = ss.selectList("members.searchName", name);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		return list;
+	}
 }
