@@ -19,23 +19,24 @@
 			success : function(respData){
 				alert(">> Ajax 처리 성공 - 응답받은 데이터 : " + respData);
 				console.log(respData);
-				console.log(respData.list);
+				console.log(respData.list); //배열데이터
 				
 				//전달받은 JSON 데이터 사용 tr 태그 만들고 화면출력
-				let htmlTag = "";
+				let htmlTag="";
 				let alist = respData.list; //JSON 객체의 속성명 "list"의 값 추출
 				$.each(alist, function(index, member){
-					//console.log("this.name : " + this.name);
-					//console.log("member.name : " + member.name);
-					htmlTag += "<tr>";
+					htmlTag +="<tr>";
 					htmlTag += "<td>" + this.idx + "</td>";
 					htmlTag += "<td>" + this.name + "</td>";
-					htmlTag += "<td>" + this["age"] + "</td>";
-					htmlTag += "<td>" + this["addr"] + "</td>";
-					htmlTag += "<td>" + this["regdate"] + "</td>";
-					htmlTag += "</tr>";
+					htmlTag += "<td>" + this.age + "</td>";
+					//htmlTag += "<td>" + this["age"] + "</td>"; //위와 동일(다른방법)
+					htmlTag += "<td>" + this.addr + "</td>";
+					htmlTag += "<td>" + this.regdate + "</td>";
+					htmlTag +="</tr>";
 				});
-				$("#dispData").html(htmlTag);
+				$("#tbody").html(htmlTag);
+				
+				
 			},
 			error : function(jqXHR, textStatus, errorThrown){
 				alert(">> Ajax 처리 실패 : \n"
@@ -44,8 +45,17 @@
 						+ "errorThrown : " + errorThrown);
 			}
 		});
+		
 	}
 </script>
+<style>
+	table {border-collapse: collapse;}
+	th, td {border : 1px solid black;
+			text-align: center; }
+	th {background-color : lightpink;}
+	td {margin : 10px;
+		padding: 5px; }
+</style>
 </head>
 <body>
 	<h1>Ajax JSON 데이터 요청 처리</h1>
@@ -61,7 +71,7 @@
 				<th>날짜</th>
 			</tr>
 		</thead>
-		<tbody id="dispData">
+		<tbody id="tbody">
 			<tr>
 				<td>1</td>
 				<td>홍길동</td>
@@ -72,11 +82,11 @@
 		</tbody>
 	</table>
 	<hr>
+	
 	<a href="javascript:getJsonMembersName('홍길동')">JSON 데이터 조회(이름으로 검색)</a>
 <script>
 	function getJsonMembersName(name) {
-		alert(">> getJsonMembersName 실행~~ 이름 : " + name);
-		alert(">> encodeURIComponent(name) : " + encodeURIComponent(name));
+		alert("getJsonMembersName 실행 / 이름 : " + name);
 		
 		$.ajax("getJsonMembersName", {
 			type : "get",
@@ -84,13 +94,28 @@
 			dataType : "json", //응답 받는 데이터 타입
 			success : function(data) {
 				alert("Ajax 처리 성공 - 응답받은 데이터 : " + data);
+				console.log(data);
+				console.log(data.list); //배열데이터
+				
+				let htmlTag="";
+				let alist = data.list; //JSON 객체의 속성명 "list"의 값 추출
+				$.each(alist, function(data){
+					htmlTag +="<tr>";
+					htmlTag += "<td>" + this.idx + "</td>";
+					htmlTag += "<td>" + this.name + "</td>";
+					htmlTag += "<td>" + this.age + "</td>";
+					//htmlTag += "<td>" + this["age"] + "</td>"; //위와 동일(다른방법)
+					htmlTag += "<td>" + this.addr + "</td>";
+					htmlTag += "<td>" + this.regdate + "</td>";
+					htmlTag +="</tr>";
+				});
+				$("#tbody").html(htmlTag);
 			},
-			error : function() {
-				alert("실패~~~");
+			error : function(){
+				alert("Ajax 처리 실패");
 			}
 		});
 	}
-</script>	
-	
+</script>
 </body>
 </html>
